@@ -1,7 +1,10 @@
 # InteractiveViewController
-UIViewController可实现交互式下滑结束页面
 
-仿微信小程序左滑dismiss界面；
+UIViewController
+
+1. 可实现交互式下滑结束页面
+
+2. 仿微信小程序左滑dismiss界面；
 
 - (void)viewDidLoad {
     // ...
