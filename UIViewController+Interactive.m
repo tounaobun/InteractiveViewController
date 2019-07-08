@@ -10,6 +10,10 @@
 static CGFloat minimumVelocitySpeed = 300.f;
 static CGFloat animationDuration = 0.2f;
 
+@interface UIViewController ()<UIGestureRecognizerDelegate>
+
+@end
+
 @implementation UIViewController (Interactive)
 
 - (void)presentedToViewController:(UIViewController *)vc animated:(BOOL)animated completion:(void (^)(void))completion {
@@ -22,15 +26,17 @@ static CGFloat animationDuration = 0.2f;
     if (direction == UIInteractiveDirectionHorizontal) {
         UIScreenEdgePanGestureRecognizer *edgePan = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(onEdgePan:)];
         edgePan.edges = UIRectEdgeLeft;
+        edgePan.delegate = self;
         [self.view addGestureRecognizer:edgePan];
     } else {
         UIPanGestureRecognizer *pan = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onDrag:)];
+        pan.delegate = self;
         [self.view addGestureRecognizer:pan];
     }
 }
 
 - (void)onEdgePan:(UIScreenEdgePanGestureRecognizer *)sender {
-
+    
     CGFloat percentThreshold = 0.5f;
     CGPoint translation = [sender translationInView:self.view];
     
@@ -59,7 +65,7 @@ static CGFloat animationDuration = 0.2f;
 }
 
 - (void)onDrag:(UIPanGestureRecognizer *)sender {
-
+    
     CGFloat percentThreshold = 0.35f;
     CGPoint translation = [sender translationInView:self.view];
     
@@ -86,6 +92,13 @@ static CGFloat animationDuration = 0.2f;
     }
     [sender setTranslation:CGPointZero inView:self.view];
     
+}
+
+#pragma mark - UIGestureRecognizerDelegate
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
+    // 同时支持横屏和竖屏手势
+    return YES;
 }
 
 @end
