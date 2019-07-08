@@ -22,7 +22,7 @@ static CGFloat animationDuration = 0.2f;
     [vc presentViewController:self animated:animated completion:completion];
 }
 
-- (void)addSlideDownGestureWithDirection:(UIInteractiveDirection)direction {
+- (void)addDismissGestureWithDirection:(UIInteractiveDirection)direction {
     if (direction == UIInteractiveDirectionHorizontal) {
         UIScreenEdgePanGestureRecognizer *edgePan = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(onEdgePan:)];
         edgePan.edges = UIRectEdgeLeft;
